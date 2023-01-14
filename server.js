@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
   next();
 });
 // main body part
-app.use(cors(corsOptions))
+
 // Template engine for ejs
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine','ejs');
