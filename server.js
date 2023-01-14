@@ -13,7 +13,7 @@ app.use(express.json());
 // cors setup
 
 const corsOptions = {
-  origin: process.env.ALLOWED_CLIENT.split(',')
+  origin: process.env.ALLOWED_CLIENT
 }
 app.use(cors(corsOptions));
 // Template engine for ejs
