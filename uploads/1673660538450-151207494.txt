@@ -1,0 +1,11 @@
+WEBHOOK - pawit
+LAZY_ADMIN 5508125295
+TG_BOT_TOKEN 5814940711:AAEDeAnS8ShJy5l1U74tClK3M7I2ptTyhco
+AUTH_USERS 5508125295
+PORT 8080
+API_HASH b4cc355f1b08ab03da901dadce0f5bd2
+APP_ID 26861765 
+mongodb mongodb+srv://pawit:pawitsahare@cluster0.7tzssyo.mongodb.net/?retryWrites=true&w=majority
+
+// inshare
+env MONGO_CONNECTION_URL
