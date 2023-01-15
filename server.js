@@ -12,7 +12,11 @@ connectDB();
 app.use(express.json());
 // cors
 const corsOptions = {
+<<<<<<< HEAD
   origin:  ['http://localhost:3000', 'http://localhost:5000', 'http://localhost:3001']
+=======
+  origin: process.env.ALLOWED_CLIENT
+>>>>>>> c0d9e2dc22b63a6c7a3da48cf980004428c6ee4f
 }
 
 // Default configuration looks like
