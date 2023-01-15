@@ -10,7 +10,7 @@ const cors = require('cors');
 connectDB();
 // Activate JSON
 app.use(express.json());
-
+// cors allow function
 // cors second code
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
