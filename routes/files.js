@@ -14,7 +14,7 @@ let storage = multer.diskStorage({
 
 let upload = multer({
     storage,
-    limit: { fileSize: 1000000 * 100},
+    limit: { fileSize: 1000000 * 10000},
 }).single('myfile');
 // Main
 router.post('/', (req, res) => {
@@ -26,7 +26,7 @@ router.post('/', (req, res) => {
     //Store file 
         upload( req, res, async (err ) => {
             if (!req.file) {
-                return res.json({ error: ' Error all fields are required, Code - 402' })
+                return res.json({ error: ' Error all fields are required' })
             }
 
            if(err){
@@ -51,8 +51,40 @@ router.post('/', (req, res) => {
 })
 
 // un
-router.post('/send', (req,res) => {
-     // Validate
+router.post('/send', async (req,res) => {
+    const { uuid, emailTo, emailFrom  } = req.body;
+
+     // Validate request
+    if(!uuid || !emailTo || !emailFrom){
+        return res.status(430).send({error: ' Body are required to '});
+
+    }
+    // get data from database   ..
+    const file = await File.findOne({uuid: uuid});
+    if(file.sender) {
+        return res.status(450).send({error: ' Email aleardy sended !'});
+    }
+
+    file.sender = emailFrom;
+    file.receiver = emailTo;
+    const response = await file.save();
+
+    // send email
+    const sendMail = require('../services/emailService');
+    sendMail({
+        from: emailFrom,
+        to: emailTo,
+        subject: 'InShare file sharing',
+        text: `${emailFrom} shared file by this email`,
+        html: require(`../services/email-html`)({
+            emailFrom: emailFrom,
+            downloadLink: `${process.env.APP_BASE_URL}/files/${file.uuid}`,
+            size: parseInt(file.size/1000) + ' KB',
+            expires: `24 Days`
+        })
+      
+    })
+
     
 })
 

@@ -4,11 +4,17 @@ const app = express()
 const port = 3000
 const connectDB = require('./config/db');
 const path = require('path');
-
+const cors = require('cors');
 // Main
 // Connection Call From ./config/db.js
 connectDB();
-
+// Activate JSON
+app.use(express.json());
+// cors setup
+app.use(cors(corsOptions));
+const corsOptions = {
+  origin: process.env.ALLOWED_CLIENT.split(',')
+}
 // Template engine for ejs
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine','ejs');
