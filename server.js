@@ -10,12 +10,27 @@ const cors = require('cors');
 connectDB();
 // Activate JSON
 app.use(express.json());
-// cors setup
-
+// cors
 const corsOptions = {
-  origin: process.env.ALLOWED_CLIENT.split(',')
+  origin:  ['http://localhost:3000', 'http://localhost:5000', 'http://localhost:3001']
 }
-app.use(cors(corsOptions));
+
+// Default configuration looks like
+// {
+//     "origin": "*",
+//     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     "preflightContinue": false,
+//     "optionsSuccessStatus": 204
+//   }
+// cors second code
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+// main body part
+app.use(cors(corsOptions))
 // Template engine for ejs
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine','ejs');
