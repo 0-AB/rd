@@ -11,10 +11,11 @@ connectDB();
 // Activate JSON
 app.use(express.json());
 // cors setup
-app.use(cors(corsOptions));
+
 const corsOptions = {
   origin: process.env.ALLOWED_CLIENT.split(',')
 }
+app.use(cors(corsOptions));
 // Template engine for ejs
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine','ejs');
